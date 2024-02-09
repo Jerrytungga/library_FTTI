@@ -28,12 +28,12 @@ body {
         
       }
       body{
-        background-color: #F5F5F5;
+        background-color: #ffff;
         
       }
       thead{
-        background-color: #001B79;
-        color: #FFFFFF;
+        background-color: #F6FFDE;
+        color: black;
         
 
       }
@@ -52,11 +52,11 @@ body {
     body {
       height: 800px;
       width: 100%;
-      background-color: #DCF2F1;
+      background-color: #fff;
 
     }
     .bt{
-        background-color: #D2E0FB;
+        background-color: #fff;
     }
     .riht{
       margin-right: 160px;
@@ -76,7 +76,7 @@ body {
 
      /* Tambahkan gaya khusus di sini sesuai kebutuhan Anda */
      .navbar {
-      background-color: #001B79;
+      /* background-color: #001B79; */
       padding: 10px;
       text-align: center;
       color: #fff;

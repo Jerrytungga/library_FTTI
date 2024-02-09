@@ -2,6 +2,17 @@
 include 'database/database.php';
 error_reporting(0);
 session_start();
+$hari_ini = date('Y-m-d');
+if (!isset($_SESSION['id'])) {
+  echo "<script type='text/javascript'>
+  alert('Anda harus masukan NIP terlebih dahulu!');
+  window.location = 'index.php'
+</script>";
+} else {
+  $id = $_SESSION['id'];
+  $anggota = mysqli_query($conn, "SELECT * FROM `tb_trainee` WHERE nip_traines='$id'");
+  $ambil_anggota = mysqli_fetch_array($anggota);
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -17,7 +28,7 @@ session_start();
         width: 150px;
       }
       .bdy{
-        background-color: #DCF2F1;
+        background-color: #fff;
       }
       .title{
         width: 150px;
@@ -38,6 +49,7 @@ include 'navbar.php';
           <input class="form-control mr-sm-2 shadow bg-light" type="text" name="search" placeholder="Enter the book title" aria-label="Search">
           <button class="btn bt my-2 my-sm-0 riht bg-light shadow " type="submit">Search</button>
         </form>
+     
     </ul>
     <hr>
   <div class="row">

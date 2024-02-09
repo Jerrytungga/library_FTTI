@@ -9,7 +9,7 @@ if (isset($_POST['login'])) {
       $row = mysqli_fetch_assoc($result);
       $_SESSION['id'] = $row['nip_traines'];
       if ($result) {
-        header("Location: peminjaman.php");
+        header("Location: buku.php");
       } 
     } else{
         $alert = $_SESSION['datagagal']="SJS";
@@ -62,7 +62,7 @@ if (isset($_POST['login'])) {
         }
 
         body {
-            background-image: url('img/perpustakaan.jpg');
+            background-image: url('img/home.jpg');
             background-repeat: no-repeat;
             background-attachment: fixed;  
             background-size: cover;
@@ -79,76 +79,29 @@ if (isset($_POST['login'])) {
             max-width: 400px;
             margin: 0 auto;
         }
-
-
-
-
-
-        .splash-screen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #3498db;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  opacity: 0; /* Atur opasitas awal menjadi 0 */
-  animation: fadeIn 2s ease-out forwards; /* Animasi fade in */
+.form-group{
+  margin-top: 150px
 }
-
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
-.splash-screen img {
-  width: 100px; /* Sesuaikan ukuran logo sesuai kebutuhan */
-  height: 100px;
-  margin-bottom: 20px;
-}
-
-.splash-screen p {
-  font-size: 18px;
-  margin: 0;
-  opacity: 0; /* Atur opasitas awal menjadi 0 */
-  animation: fadeInUp 2s ease-out 1s forwards; /* Animasi fade in dan slide up setelah 1 detik */
-}
-
-@keyframes fadeInUp {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
 
 
     </style>
 </head>
 <body class="transparan-bg">
     <nav class="navbar navbar-expand-lg ">
-        <h2 class="navbar-brand font-weight-bold" >FULL TIME TRAINING INDONESIA</h2>
+        <h2 class="navbar-brand font-weight-bold" >FULL TIME TRAINING INDONESIA <br>L I B R A R Y
         
     </nav>
-    <div class="splash-screen">
-        <center>
-
-            <h1 class="font-weight-bold" >FULL TIME TRAINING INDONESIA</h1>
-        <h2 class="font-weight-bold" >Library</h2>
-        
-        <p>Mohon tunggu...</p>
-        </center>
-  </div>
+   
     <div class="container custom-container">
-        <h1 class="font-weight-bold font-italic text-capitalize text-light mb-3">library</h1>
+      <center>
+        <!-- <h1 class="font-weight-bold font-italic text-capitalize text-light mb-3">library</h1> -->
         <form action="" method="post">
             <div class="form-group">
-                <input type="text" name="nip" class="form-control shadow rounded-20" placeholder="Enter your NIP" required>
+                <input type="text" name="nip" class="form-control col-5 shadow rounded-30" placeholder="Enter your NIP" required>
+                <button type="submit" name="login" class="btn col-5 btn-info btn-block shadow rounded-10 mt-2">Login</button>
             </div>
-            <button type="submit" name="login" class="btn btn-info btn-block shadow rounded-10 mt-2">Login</button>
         </form>
+      </center>
     </div>
    
 
@@ -156,16 +109,7 @@ if (isset($_POST['login'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
  
    
-   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-  // Sembunyikan splash screen setelah animasi teks selesai (misalnya, 4 detik)
-  setTimeout(function () {
-    var splashScreen = document.querySelector(".splash-screen");
-    splashScreen.style.display = "none";
-    document.body.style.overflow = "auto"; /* Mengembalikan scroll pada halaman utama */
-  }, 4000); // Waktu dalam milidetik
-});
-    </script>
+ 
     <?php
 include 'alert/alert.php';
     ?>

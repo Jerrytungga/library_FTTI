@@ -10,8 +10,8 @@ if (!isset($_SESSION['id'])) {
 } else {
   $id = $_SESSION['id'];
   $_POST['kd_bo'];
-  $get_data = mysqli_query($conn, "SELECT * FROM tb_trainee WHERE nip_traines='$id'");
-  $data = mysqli_fetch_array($get_data);
+  $anggota = mysqli_query($conn, "SELECT * FROM `tb_trainee` WHERE nip_traines='$id'");
+  $ambil_anggota = mysqli_fetch_array($anggota);
 
       $pengembalian = mysqli_query($conn, "SELECT * FROM `tb_pengembalian` where tb_kod_buku='". $_POST['kd_bo']."'");
 

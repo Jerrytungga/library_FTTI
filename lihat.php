@@ -10,9 +10,8 @@ if (!isset($_SESSION['id'])) {
 } else {
   $id = $_SESSION['id'];
   $_POST['kd_book'];
-  $get_data = mysqli_query($conn, "SELECT * FROM tb_trainee WHERE nip_traines='$id'");
-  $data = mysqli_fetch_array($get_data);
- 
+  $anggota = mysqli_query($conn, "SELECT * FROM `tb_trainee` WHERE nip_traines='$id'");
+  $ambil_anggota = mysqli_fetch_array($anggota);
 }
 ?>
 <!doctype html>
@@ -33,6 +32,8 @@ include 'navbar.php';
 if(isset($_POST['kd_book'])){
   $get_data_buku = mysqli_query($conn, "SELECT * FROM `tb_buku` WHERE tb_kode_buku='".$_POST['kd_book']."'");
   $data_buku = mysqli_fetch_array($get_data_buku);
+
+ 
 ?>
   
 <hr>

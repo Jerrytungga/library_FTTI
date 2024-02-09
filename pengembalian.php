@@ -9,6 +9,8 @@ if (!isset($_SESSION['id'])) {
 </script>";
 } else {
   $id = $_SESSION['id'];
+  $anggota = mysqli_query($conn, "SELECT * FROM `tb_trainee` WHERE nip_traines='$id'");
+  $ambil_anggota = mysqli_fetch_array($anggota);
   $get_data_buku = mysqli_query($conn, "SELECT * FROM `tb_buku` WHERE tb_kode_buku='$kodebuku'");
   $data_buku = mysqli_fetch_array($get_data_buku);
   $get_data = mysqli_query($conn, "SELECT * FROM tb_trainee WHERE nip_traines='$id'");
