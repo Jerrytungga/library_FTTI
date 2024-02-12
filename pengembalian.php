@@ -61,7 +61,7 @@ include 'navbar.php';
                             <th scope="col">No</th>
                             <th scope="col">Book</th>
                             <th scope="col">Borrowing date</th>
-                            <th scope="col">Number of Books</th>
+                            <th scope="col">Book stock</th>
                             <th scope="col">Deadline</th>
                             <th scope="col">Late fees</th>
                             <th scope="col">Return Date</th>

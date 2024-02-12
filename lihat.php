@@ -76,10 +76,6 @@ if(isset($_POST['kd_book'])){
               <input type="text" value="<?= $data_buku['tb_kategori_buku']; ?>" class=" form-control" readonly>
             </div>
 
-            <div class="m-1">
-              <label for="">Publication Year :</label>
-              <input type="text" value="<?= $data_buku['tb_tahun_terbit']; ?>" class=" form-control" readonly>
-            </div>
 
             <div class="m-1">
               <label for="">Book entry date :</label>
