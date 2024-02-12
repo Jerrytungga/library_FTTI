@@ -45,6 +45,12 @@ if (!isset($_SESSION['id'])) {
 .image:hover {
   transform: scale(1.1);
 }
+
+.size{
+  background-color: #ffff;
+  width: 200px;
+
+}
     
     </style>
   </head>
@@ -77,7 +83,7 @@ while ($row = mysqli_fetch_array($database_buku)){
 
         <!-- <a href="#" class=" text-capitalize font-weight-bold text-dark">View More</a> -->
         <form action="lihat.php" method="post">
-          <button type="submit" name="kd_book" value="<?= $row['tb_kode_buku']; ?>" class="btn-sm btn font-weight-bold mr-2 image">
+          <button type="submit" name="kd_book" value="<?= $row['tb_kode_buku']; ?>" class="btn-sm  font-weight-bold mr-2 image">
             <img src="img/<?= $row['tb_gambar_buku']; ?>" alt="">
               <h5 class="title mt-1 text-uppercase text-black-50"><?= $row['tb_judul_buku']; ?></h5>
           
@@ -88,7 +94,7 @@ while ($row = mysqli_fetch_array($database_buku)){
             
         </form>
         <form action="lihatpeminjam.php" method="post">
-        <button type="submit" name="kd_bo" value="<?= $row['tb_kode_buku']; ?>"  class="btn-sm btn font-weight-bold mr-2">
+        <button type="submit" name="kd_bo" value="<?= $row['tb_kode_buku']; ?>"  class="btn-sm  font-weight-bold mr-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
                 <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
                 <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
@@ -112,7 +118,7 @@ while ($row = mysqli_fetch_array($database_buku)){
       <div class="card-body">
         <!-- <a href="#" class=" text-capitalize font-weight-bold text-dark">View More</a> -->
         <form action="lihat.php" method="post">
-          <button type="submit" name="kd_book" value="<?= $row['tb_kode_buku']; ?>" class="btn-sm btn font-weight-bold mr-2 image">
+          <button type="submit" name="kd_book" value="<?= $row['tb_kode_buku']; ?>" class="btn-sm size font-weight-bold mr-2 image">
             <img src="img/<?= $row['tb_gambar_buku']; ?>" alt="">
               <h5 class="title mt-1 text-uppercase text-black-50"><?= $row['tb_judul_buku']; ?></h5>
           
@@ -121,7 +127,7 @@ while ($row = mysqli_fetch_array($database_buku)){
            
         </form>
         <form action="lihatpeminjam.php" method="post">
-        <button type="submit" name="kd_bo" value="<?= $row['tb_kode_buku']; ?>"  class="btn-sm btn font-weight-bold mr-2">
+        <button type="submit" name="kd_bo" value="<?= $row['tb_kode_buku']; ?>"  class="btn-sm size btn font-weight-bold mr-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
                 <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
                 <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
@@ -147,7 +153,7 @@ while ($row = mysqli_fetch_array($database_buku)){
     <div class="card-body">
       <!-- <a href="#" class=" text-capitalize font-weight-bold text-dark">View More</a> -->
       <form action="lihat.php" method="post" class="form-inline">
-        <button type="submit" name="kd_book" value="<?= $row['tb_kode_buku']; ?>" class="btn-sm btn font-weight-bold mr-2 image">
+        <button type="submit" name="kd_book" value="<?= $row['tb_kode_buku']; ?>" class="btn-sm size btn font-weight-bold mr-2 image">
           
         <img src="img/<?= $row['tb_gambar_buku']; ?>" alt="">
         <h5 class="title mt-1 text-uppercase text-black-50"><?= $row['tb_judul_buku']; ?></h5>
