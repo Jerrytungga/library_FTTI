@@ -22,14 +22,13 @@ if (isset($_POST['save'])) {
   $stok = $_POST['stok'];
   $Penulis = $_POST['Penulis'];
   $kategori = $_POST['kategori'];
-  $thn_terbit = $_POST['thn_terbit'];
   $Baris = $_POST['Baris'];
   if ($nama_gambar != '') {
     if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-      $simpan_data_buku = mysqli_query($conn, "INSERT INTO `tb_buku`(`tb_judul_buku`, `tb_kategori_buku`, `tb_penulis`, `tb_penerbit`, `tb_tahun_terbit`, `tb_rak_buku`, `tb_baris_buku`, `tb_stok_buku`,`tb_kode_buku`,`tb_volume`,`tb_gambar_buku`) VALUES ('$judul','$kategori','$Penulis','$penerbit','$thn_terbit','$rakbuku','$Baris','$stok','$kode_buku','$volume','$nama_gambar')");
+      $simpan_data_buku = mysqli_query($conn, "INSERT INTO `tb_buku`(`tb_judul_buku`, `tb_kategori_buku`, `tb_penulis`, `tb_penerbit`, `tb_rak_buku`, `tb_baris_buku`, `tb_stok_buku`,`tb_kode_buku`,`tb_volume`,`tb_gambar_buku`) VALUES ('$judul','$kategori','$Penulis','$penerbit','$rakbuku','$Baris','$stok','$kode_buku','$volume','$nama_gambar')");
     }
   } else {
-    $simpan_data_buku = mysqli_query($conn, "INSERT INTO `tb_buku`(`tb_judul_buku`, `tb_kategori_buku`, `tb_penulis`, `tb_penerbit`, `tb_tahun_terbit`, `tb_rak_buku`, `tb_baris_buku`, `tb_stok_buku`,`tb_kode_buku`,`tb_volume`) VALUES ('$judul','$kategori','$Penulis','$penerbit','$thn_terbit','$rakbuku','$Baris','$stok','$kode_buku','$volume')");
+    $simpan_data_buku = mysqli_query($conn, "INSERT INTO `tb_buku`(`tb_judul_buku`, `tb_kategori_buku`, `tb_penulis`, `tb_penerbit`, `tb_rak_buku`, `tb_baris_buku`, `tb_stok_buku`,`tb_kode_buku`,`tb_volume`) VALUES ('$judul','$kategori','$Penulis','$penerbit','$rakbuku','$Baris','$stok','$kode_buku','$volume')");
   }
 
 }
@@ -197,10 +196,7 @@ while ($perulangan_kategori = mysqli_fetch_array($perulangan_)) { ?>
 <?php } ?>
               </select>
             </div>
-            <div class="m-2">
-                <label for="">Publication Year :</label>
-              <input type="text" name="thn_terbit" class="form-control" required>
-            </div>
+           
             <div class="m-2">
                 <label for="">Book row :</label>
               <input type="text" name="Baris" class="form-control" required> 
@@ -208,7 +204,7 @@ while ($perulangan_kategori = mysqli_fetch_array($perulangan_)) { ?>
             <div class="m-2">
               <label for="">Book volumes :</label>
               <select  id="" class="form-control" name="volume" required>
-                <option value="">There isn't any</option>
+                <option value="0">There isn't any</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -261,8 +257,7 @@ while ($perulangan_kategori = mysqli_fetch_array($perulangan_)) { ?>
       <th scope="col">Author</th>
       <th scope="col">Category</th>
       <th scope="col">Book publisher</th>
-      <th scope="col">Publication Year</th>
-      <th scope="col">Book volumes</th>
+      <th scope="col">Book stock</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
@@ -277,8 +272,7 @@ while ($perulangan_kategori = mysqli_fetch_array($perulangan_)) { ?>
       <td><?= $row['tb_penulis']; ?></td>
       <td><?= $row['tb_kategori_buku']; ?></td>
       <td><?= $row['tb_penerbit']; ?></td>
-      <td><?= $row['tb_tahun_terbit']; ?></td>
-      <td><?= $row['tb_volume']; ?></td>
+      <td><?= $row['tb_stok_buku']; ?></td>
       <td>
 <span>
 

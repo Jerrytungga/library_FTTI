@@ -38,7 +38,7 @@
               <a href="tabel_buku.php" class="nav-link ">Book table</a>
             </li>
             <li class="nav-item">
-              <a href="../keluar.php" class="btn btn-danger btn-sm rounded-10 shadow ">Keluar</a>
+              <a href="../keluar.php" class="btn btn-danger btn-sm rounded-10 shadow ">Log Out</a>
             </li>
           </ul>
   </div>

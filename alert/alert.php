@@ -16,7 +16,7 @@
      Swal.fire({
   position: "small",
   icon: "success",
-  title: "Perubahan berhasil disimpan",
+  title: "Changes saved successfully",
   showConfirmButton: false,
   timer: 1500
 }).then(() => {
@@ -33,7 +33,7 @@
          Swal.fire({
       position: "small",
       icon: "error",
-      title: "Perubahan berhasil disimpan",
+      title: "Changes failed to save",
       showConfirmButton: false,
       timer: 1500
     }).then(() => {

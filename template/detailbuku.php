@@ -55,7 +55,7 @@ if ($_GET['kd_buku'] > 0) {
         <button type="submit" name="qr" value="<?= $ambil_buku['tb_kode_buku']; ?>" id="qr" class="btn btn-success rounded-20">Print QR Code</button>
       </form>
       <br><br>
-      <span class="text-danger"> *Sisa buku 10 dari jumlah awal buku</span>
+      <!-- <span class="text-danger"> *Sisa buku 10 dari jumlah awal buku</span> -->
       </div>
 
       </div>
@@ -69,10 +69,7 @@ if ($_GET['kd_buku'] > 0) {
       <label for="">Book category :</label>
       <input type="text" value="<?= $ambil_buku['tb_kategori_buku']; ?>" class=" form-control" readonly>
       </div>
-      <div class="m-1">
-      <label for="">Publication Year :</label>
-      <input type="text" value="<?= $ambil_buku['tb_tahun_terbit']; ?>" class=" form-control" readonly>
-      </div>
+     
       <div class="m-1">
       <label for="">Book entry date :</label>
       <input type="text" value="<?= $ambil_buku['tb_tanggal_input_buku']; ?>" class=" form-control" readonly>
@@ -87,7 +84,7 @@ if ($_GET['kd_buku'] > 0) {
       <div class="modal-dialog  modal-sm">
       <div class="modal-content">
       <div class="modal-header header-modal ">
-      <h5 class="modal-title text-light" id="staticBackdropLabel">Add the Number of Books</h5>
+      <h5 class="modal-title text-light" id="staticBackdropLabel">Add the Stock of Books</h5>
       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -168,14 +165,13 @@ if ($_GET['kd_buku'] > 0) {
     $penulisbuku = $_POST['penulisbuku'];
     $kodebuku = $_POST['kodebuku'];
     $kategori = $_POST['kategori'];
-    $thn_terbit = $_POST['thn_terbit'];
     $rakbuku = $_POST['rakbuku'];
     $barisbuku = $_POST['barisbuku'];
     $penerbitbuku = $_POST['penerbitbuku'];
     $volume = $_POST['volume'];
     if ($nama_gambar != '') {
       if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-        $simpan_data_buku = mysqli_query($conn, "UPDATE `tb_buku` SET `tb_judul_buku`='$judulbuku',`tb_kategori_buku`='$kategori',`tb_penulis`='$penulisbuku',`tb_penerbit`='$penerbitbuku',`tb_tahun_terbit`='$thn_terbit',`tb_rak_buku`='$rakbuku',`tb_baris_buku`='$barisbuku',`tb_kode_buku`='$kodebuku',`tb_volume`='$volume',`tb_gambar_buku`='$nama_gambar' WHERE `tb_id`='$idkbuku'");
+        $simpan_data_buku = mysqli_query($conn, "UPDATE `tb_buku` SET `tb_judul_buku`='$judulbuku',`tb_kategori_buku`='$kategori',`tb_penulis`='$penulisbuku',`tb_penerbit`='$penerbitbuku',`tb_rak_buku`='$rakbuku',`tb_baris_buku`='$barisbuku',`tb_kode_buku`='$kodebuku',`tb_volume`='$volume',`tb_gambar_buku`='$nama_gambar' WHERE `tb_id`='$idkbuku'");
         
         if($simpan_data_buku){
           $cekdata = $_SESSION['cek_data'] = $_POST['kodebuku'];
@@ -185,7 +181,7 @@ if ($_GET['kd_buku'] > 0) {
         }
       }
     } else {
-      $simpan_data_buku = mysqli_query($conn, "UPDATE `tb_buku` SET `tb_judul_buku`='$judulbuku',`tb_kategori_buku`='$kategori',`tb_penulis`='$penulisbuku',`tb_penerbit`='$penerbitbuku',`tb_tahun_terbit`='$thn_terbit',`tb_rak_buku`='$rakbuku',`tb_baris_buku`='$barisbuku',`tb_kode_buku`='$kodebuku',`tb_volume`='$volume' WHERE `tb_id`='$idkbuku'");
+      $simpan_data_buku = mysqli_query($conn, "UPDATE `tb_buku` SET `tb_judul_buku`='$judulbuku',`tb_kategori_buku`='$kategori',`tb_penulis`='$penulisbuku',`tb_penerbit`='$penerbitbuku',`tb_rak_buku`='$rakbuku',`tb_baris_buku`='$barisbuku',`tb_kode_buku`='$kodebuku',`tb_volume`='$volume' WHERE `tb_id`='$idkbuku'");
       if($simpan_data_buku){
         $cekdata = $_SESSION['cek_data'] = $_POST['kodebuku'];
       } else {
@@ -238,14 +234,9 @@ if ($_GET['kd_buku'] > 0) {
       <input type="text" name="kodebuku" value="<?= $ambil_buku1['tb_kode_buku']; ?>" class="form-control" >
       </div>
       <div class="m-1 mt-2">
-      <button type="button" class="btn btn-primary rounded-20 position-relative">
-      See Active Borrowers
-      <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-      10
-      </span>
-      </button>
+     
       <br><br>
-      <span class="text-danger"> *Sisa buku 10 dari jumlah awal buku</span>
+      <!-- <span class="text-danger"> *Sisa buku 10 dari jumlah awal buku</span> -->
       </div>
 
       </div>
@@ -268,10 +259,7 @@ while ($perulangan_kategori = mysqli_fetch_array($perulangan_)) { ?>
       </select>
     
       </div>
-      <div class="m-1">
-      <label for="">Publication Year :</label>
-      <input type="text" name="thn_terbit" value="<?= $ambil_buku1['tb_tahun_terbit']; ?>" class=" form-control" >
-      </div>
+   
       <div class="m-1">
       <label for="">Book entry date :</label>
       <input type="text" readonly value="<?= $ambil_buku1['tb_tanggal_input_buku']; ?>" class=" form-control" >

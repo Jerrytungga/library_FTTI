@@ -35,6 +35,16 @@ if (!isset($_SESSION['id'])) {
 
       }
 
+ 
+.image {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.image:hover {
+  transform: scale(1.1);
+}
     
     </style>
   </head>
@@ -64,11 +74,17 @@ while ($row = mysqli_fetch_array($database_buku)){
   ?>
   <div class="col-6 col-md-2 col-lg-2 mb-3">
       <div class="card-body">
-      <img src="img/<?= $row['tb_gambar_buku']; ?>" alt="">
-        <h5 class="title mt-1 text-uppercase text-black-50"><?= $row['tb_judul_buku']; ?></h5>
+
         <!-- <a href="#" class=" text-capitalize font-weight-bold text-dark">View More</a> -->
         <form action="lihat.php" method="post">
-            <button type="submit" name="kd_book" value="<?= $row['tb_kode_buku']; ?>" class="btn-sm btn font-weight-bold mr-2">View more</button>
+          <button type="submit" name="kd_book" value="<?= $row['tb_kode_buku']; ?>" class="btn-sm btn font-weight-bold mr-2 image">
+            <img src="img/<?= $row['tb_gambar_buku']; ?>" alt="">
+              <h5 class="title mt-1 text-uppercase text-black-50"><?= $row['tb_judul_buku']; ?></h5>
+          
+          
+          
+          
+          </button>
             
         </form>
         <form action="lihatpeminjam.php" method="post">
@@ -94,11 +110,14 @@ while ($row = mysqli_fetch_array($database_buku)){
   ?>
   <div class="col-6 col-md-2 col-lg-2 mb-3">
       <div class="card-body">
-      <img src="img/<?= $row['tb_gambar_buku']; ?>" alt="">
-        <h5 class="title mt-1 text-uppercase text-black-50"><?= $row['tb_judul_buku']; ?></h5>
         <!-- <a href="#" class=" text-capitalize font-weight-bold text-dark">View More</a> -->
         <form action="lihat.php" method="post">
-            <button type="submit" name="kd_book" value="<?= $row['tb_kode_buku']; ?>" class="btn-sm btn font-weight-bold mr-2">View more</button>
+          <button type="submit" name="kd_book" value="<?= $row['tb_kode_buku']; ?>" class="btn-sm btn font-weight-bold mr-2 image">
+            <img src="img/<?= $row['tb_gambar_buku']; ?>" alt="">
+              <h5 class="title mt-1 text-uppercase text-black-50"><?= $row['tb_judul_buku']; ?></h5>
+          
+          
+          </button>
            
         </form>
         <form action="lihatpeminjam.php" method="post">
@@ -126,11 +145,14 @@ while ($row = mysqli_fetch_array($database_buku)){
   ?>
   <div class="col-6 col-md-2 col-lg-2 mb-3">
     <div class="card-body">
-      <img src="img/<?= $row['tb_gambar_buku']; ?>" alt="">
-      <h5 class="title mt-1 text-uppercase text-black-50"><?= $row['tb_judul_buku']; ?></h5>
       <!-- <a href="#" class=" text-capitalize font-weight-bold text-dark">View More</a> -->
       <form action="lihat.php" method="post" class="form-inline">
-        <button type="submit" name="kd_book" value="<?= $row['tb_kode_buku']; ?>" class="btn-sm btn font-weight-bold mr-2">View more</button>
+        <button type="submit" name="kd_book" value="<?= $row['tb_kode_buku']; ?>" class="btn-sm btn font-weight-bold mr-2 image">
+          
+        <img src="img/<?= $row['tb_gambar_buku']; ?>" alt="">
+        <h5 class="title mt-1 text-uppercase text-black-50"><?= $row['tb_judul_buku']; ?></h5>
+      
+      </button>
       </form>
       <form action="lihatpeminjam.php" method="post">
         <button type="submit" name="kd_bo" value="<?= $row['tb_kode_buku']; ?>"  class="btn-sm btn font-weight-bold mr-2">
