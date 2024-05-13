@@ -51,7 +51,6 @@ if (!isset($_SESSION['id'])) {
   width: 200px;
 
 }
-    
     </style>
   </head>
   <body class="bdy">
@@ -85,7 +84,7 @@ while ($row = mysqli_fetch_array($database_buku)){
         <form action="lihat.php" method="post">
           <button type="submit" name="kd_book" value="<?= $row['tb_kode_buku']; ?>" class="btn-sm  font-weight-bold mr-2 image">
             <img src="img/<?= $row['tb_gambar_buku']; ?>" alt="">
-              <h5 class="title mt-1 text-uppercase text-black-50"><?= $row['tb_judul_buku']; ?></h5>
+              <h5 class="d-inline-block text-truncate text-justify" style="max-width: 100px;"><?= $row['tb_judul_buku']; ?></h5>
           
           
           
@@ -120,7 +119,7 @@ while ($row = mysqli_fetch_array($database_buku)){
         <form action="lihat.php" method="post">
           <button type="submit" name="kd_book" value="<?= $row['tb_kode_buku']; ?>" class="btn-sm size font-weight-bold mr-2 image">
             <img src="img/<?= $row['tb_gambar_buku']; ?>" alt="">
-              <h5 class="title mt-1 text-uppercase text-black-50"><?= $row['tb_judul_buku']; ?></h5>
+            <h5 class="d-inline-block text-truncate text-justify" style="max-width: 100px;"><?= $row['tb_judul_buku']; ?></h5>
           
           
           </button>
@@ -156,7 +155,7 @@ while ($row = mysqli_fetch_array($database_buku)){
         <button type="submit" name="kd_book" value="<?= $row['tb_kode_buku']; ?>" class="btn-sm size btn font-weight-bold mr-2 image">
           
         <img src="img/<?= $row['tb_gambar_buku']; ?>" alt="">
-        <h5 class="title mt-1 text-uppercase text-black-50"><?= $row['tb_judul_buku']; ?></h5>
+        <h5 class="d-inline-block text-truncate text-justify" style="max-width: 100px;"><?= $row['tb_judul_buku']; ?></h5>
       
       </button>
       </form>

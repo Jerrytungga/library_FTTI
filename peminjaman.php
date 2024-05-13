@@ -48,35 +48,47 @@ if($insert_kembali_buku){
 
   if (isset($_POST['kd_buku'])) {
     $kodebuku = $_POST['kd_buku'];
-    $pinjam = '+1';
-    $sql_cekdata_peminjaman = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM `tb_peminjaman` WHERE tb_nip='$id' and tb_kd_buku='$kodebuku'"));
-    if($sql_cekdata_peminjaman == 0){
-      $pd = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `tb_buku` WHERE tb_kode_buku='$kodebuku'"));
-      $max_id = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_peminjaman`) As id FROM `tb_peminjaman`"));
-      $idBuku = $max_id['id'] + 1;
-      $katego = $pd['tb_kategori_buku'];
-      $insertbuku = mysqli_query($conn, "INSERT INTO `tb_peminjaman`(`id_peminjaman`,`tb_nip`, `tb_kd_buku`, `tb_stok_peminjaman`,`tb_kategori`) VALUES ('$idBuku','$id','$kodebuku','$pinjam','$katego')");
-      if($insertbuku){
-        echo "<script>setTimeout(function(){ window.location.href = 'peminjaman.php'; }, 3000);</script>";
-      }
-    } else{
-        // $kd=$_POST['kd_buku'];
-        // $ambil_stokbuku = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`tb_stok_buku`) As jumlahbuku FROM `tb_buku` where tb_kode_buku='$kd'"));
-        // $ambilstok = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`tb_stok_peminjaman`) As jumlahstok FROM `tb_peminjaman` where tb_nip='$id'"));
-        // $stok_ = $ambil_stokbuku['jumlahbuku']-$ambilstok['jumlahstok'];
-        // mysqli_query($conn, "UPDATE `tb_buku` SET `tb_stok_buku`='$stok_' WHERE `tb_kode_buku`='$kd'");
-        echo "<script type='text/javascript'>
-        alert('Buku sudah ada');
-      </script>";
-      }
-   
+    $cek_kode_buku = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `tb_buku` WHERE `tb_kode_buku`='$kodebuku'"));
+    $cek_kode_buku = ['tb_kode_buku'];
+    if ($cek_kode_buku > 0) {
+      if (isset($_POST['kd_buku'])) {
+        $kodebuku = $_POST['kd_buku'];
+        $pinjam = '+1';
+        $sql_cekdata_peminjaman = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM `tb_peminjaman` WHERE tb_nip='$id' and tb_kd_buku='$kodebuku'"));
+        if($sql_cekdata_peminjaman == 0){
+          $pd = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `tb_buku` WHERE tb_kode_buku='$kodebuku'"));
+          $max_id = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_peminjaman`) As id FROM `tb_peminjaman`"));
+          $idBuku = $max_id['id'] + 1;
+          $katego = $pd['tb_kategori_buku'];
+          $insertbuku = mysqli_query($conn, "INSERT INTO `tb_peminjaman`(`id_peminjaman`,`tb_nip`, `tb_kd_buku`, `tb_stok_peminjaman`,`tb_kategori`) VALUES ('$idBuku','$id','$kodebuku','$pinjam','$katego')");
+          if($insertbuku){
+            echo "<script>setTimeout(function(){ window.location.href = 'peminjaman.php'; }, 3000);</script>";
+          }
+        } else{
+            // $kd=$_POST['kd_buku'];
+            // $ambil_stokbuku = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`tb_stok_buku`) As jumlahbuku FROM `tb_buku` where tb_kode_buku='$kd'"));
+            // $ambilstok = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`tb_stok_peminjaman`) As jumlahstok FROM `tb_peminjaman` where tb_nip='$id'"));
+            // $stok_ = $ambil_stokbuku['jumlahbuku']-$ambilstok['jumlahstok'];
+            // mysqli_query($conn, "UPDATE `tb_buku` SET `tb_stok_buku`='$stok_' WHERE `tb_kode_buku`='$kd'");
+            echo "<script type='text/javascript'>
+            alert('Buku sudah ada');
+          </script>";
+          }
+      } 
+
+    }
+
+ 
+ 
     
+
+
   } 
 
 
   $get_data = mysqli_query($conn, "SELECT * FROM tb_trainee WHERE nip_traines='$id'");
   $data = mysqli_fetch_array($get_data);
-  $peminjam = mysqli_query($conn, "SELECT * FROM `tb_peminjaman` where tb_nip='$id' and tb_status='Dipinjam'");
+  $peminjam = mysqli_query($conn, "SELECT * FROM `tb_peminjaman` where tb_nip='$id' and tb_status='Borrowed'");
 }
 ?>
 <!doctype html>
@@ -85,8 +97,6 @@ if($insert_kembali_buku){
     <meta charset="utf-8">
     <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 <link rel="stylesheet" href="css/user.css">
     <title>FTTI | Library</title>
@@ -100,10 +110,14 @@ include 'navbar.php';
   <div class="container-fluid">
 
 <div class="row m-2 mt-3">
-  <div class="col-sm-8">
+  <div class="col">
     <div class="card">
       <div class="card-body">
         <h5 class="card-title text-capitalize font-italic">Book Borrowing Table</h5>
+        <form action="" method="post">
+          <input  name="kd_buku" type="text" class="mb-2" autofocus required>
+          <button type="submit">Masukan</button>
+        </form>
         <div class="table-responsive">
         <table class="table table-striped">
   <thead>
@@ -207,53 +221,13 @@ if ($data['tb_kembali'] <= $hari_ini) {
       }
     </style>
   </div>
-  <div class="col-md-4 mb-4">
-    <div class="card background">
-        <div class="card-body">
-            <h5 class="card-title font-weight-bold font-italic text-center mb-3">Scan the Book</h5>
-            <div class="text-center">
-                <canvas id="bookCanvas"></canvas>
-            </div>
-        </div>
-    </div>
 </div>
  
 
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="scanner/js/jquery.js"></script>
-  <script type="text/javascript" src="scanner/js/qrcodelib.js"></script>
-  <script type="text/javascript" src="scanner/js/webcodecamjquery.js"></script>
-    <script type="text/javascript">
-    var arg = {
-      resultFunction: function(result) {
-
-        var redirect = '';
-        $.redirectPost(redirect, {
-          kd_buku: result.code
-        });
-      }
-    };
-
-    var decoder = $("canvas").WebCodeCamJQuery(arg).data().plugin_WebCodeCamJQuery;
-    decoder.buildSelectMenu("select");
-    decoder.play();
-    $('select').on('change', function() {
-      decoder.stop().play();
-    });
-
-    $.extend({
-      redirectPost: function(location, args) {
-        var form = '';
-        $.each(args, function(key, value) {
-          form += '<input type="hidden" name="' + key + '" value="' + value + '">';
-        });
-        $('<form action="' + location + '" method="POST">' + form + '</form>').appendTo('body').submit();
-      }
-    });
-    
-  </script>
+ 
 
 <script>
    $(document).on("click", "#kembali", function() {

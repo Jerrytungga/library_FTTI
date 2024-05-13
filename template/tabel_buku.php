@@ -1,6 +1,10 @@
 <?php
 include '../database/database.php';
 include 'role.php';
+
+
+
+
 if (isset($_POST['kategori_buku'])) {
   $_kategori_buku = $_POST['kategori_buku'];
   $simpan_data_buku = mysqli_query($conn, "INSERT INTO `tb_kategori`(`kategori`) VALUES ('$_kategori_buku')");
@@ -14,10 +18,10 @@ if (isset($_POST['save'])) {
   $sumber = $_FILES['image']['tmp_name'];
   $target = '../img/';
   $nama_gambar = $_FILES['image']['name'];
-  $volume = $_POST['volume'];
+  // $volume = $_POST['volume'];
   $kode_buku = $_POST['kode_buku'];
   $judul = $_POST['judul'];
-  $penerbit = $_POST['penerbit'];
+  // $penerbit = $_POST['penerbit'];
   $rakbuku = $_POST['rakbuku'];
   $stok = $_POST['stok'];
   $Penulis = $_POST['Penulis'];
@@ -25,13 +29,15 @@ if (isset($_POST['save'])) {
   $Baris = $_POST['Baris'];
   if ($nama_gambar != '') {
     if (move_uploaded_file($sumber, $target . $nama_gambar)) {
-      $simpan_data_buku = mysqli_query($conn, "INSERT INTO `tb_buku`(`tb_judul_buku`, `tb_kategori_buku`, `tb_penulis`, `tb_penerbit`, `tb_rak_buku`, `tb_baris_buku`, `tb_stok_buku`,`tb_kode_buku`,`tb_volume`,`tb_gambar_buku`) VALUES ('$judul','$kategori','$Penulis','$penerbit','$rakbuku','$Baris','$stok','$kode_buku','$volume','$nama_gambar')");
+      $simpan_data_buku = mysqli_query($conn, "INSERT INTO `tb_buku`(`tb_judul_buku`, `tb_kategori_buku`, `tb_penulis`, `tb_rak_buku`, `tb_baris_buku`, `tb_stok_buku`,`tb_kode_buku`,`tb_gambar_buku`) VALUES ('$judul','$kategori','$Penulis','$rakbuku','$Baris','$stok','$kode_buku','$nama_gambar')");
     }
   } else {
-    $simpan_data_buku = mysqli_query($conn, "INSERT INTO `tb_buku`(`tb_judul_buku`, `tb_kategori_buku`, `tb_penulis`, `tb_penerbit`, `tb_rak_buku`, `tb_baris_buku`, `tb_stok_buku`,`tb_kode_buku`,`tb_volume`) VALUES ('$judul','$kategori','$Penulis','$penerbit','$rakbuku','$Baris','$stok','$kode_buku','$volume')");
+    $simpan_data_buku = mysqli_query($conn, "INSERT INTO `tb_buku`(`tb_judul_buku`, `tb_kategori_buku`, `tb_penulis`, `tb_rak_buku`, `tb_baris_buku`, `tb_stok_buku`,`tb_kode_buku`) VALUES ('$judul','$kategori','$Penulis','$rakbuku','$Baris','$stok','$kode_buku')");
   }
 
 }
+
+
 $database_buku = mysqli_query($conn, "SELECT * FROM `tb_buku` order by `tb_id` DESC ");
 $kategori__buku = mysqli_query($conn, "SELECT * FROM `tb_kategori`");
 ?>
@@ -67,11 +73,14 @@ include 'navbar.php';
       <button type="button" class="btn btn-primary rounded-10 zoom-in-button shadow zoom-in-out-button" data-toggle="modal" data-target="#tambah_buku">
       Enter Book Data
       </button>
-   
+
+      
       <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary ml-4 rounded-10 zoom-in-button " data-toggle="modal" data-target="#tambah_kategori">
-Enter Book Category
-</button>
+      <button type="button" class="btn btn-primary ml-4 rounded-10 zoom-in-button " data-toggle="modal" data-target="#tambah_kategori">
+        Enter Book Category
+      </button>
+
+     
 
 <!-- Modal -->
 <div class="modal fade" id="tambah_kategori" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -117,7 +126,7 @@ Enter Book Category
     </tr>
     <?php $b++; ?>
     <?php endforeach; ?>
-   
+  
   </tbody>
 </table>
 
@@ -144,6 +153,7 @@ Enter Book Category
 <div class="modal fade" id="tambah_buku" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
+   
       <div class="modal-header header-modal">
         <h5 class="modal-title text-light" id="staticBackdropLabel">Add Book Data</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -156,7 +166,7 @@ Enter Book Category
             <div class="col-sm-6">
             <div class="m-2">
                 <label for="">Book code :</label>
-              <input type="text" class="form-control" name="kode_buku" required>
+              <input type="text" class="form-control" name="kode_buku"  required>
               </div>
             <div class="m-2">
                 <label for="">Image :</label>
@@ -166,18 +176,12 @@ Enter Book Category
                 <label for="">Book title :</label>
               <input type="text" class="form-control" name="judul" required>
               </div>
-            <div class="m-2">
-                <label for="">Book publisher :</label>
-              <input type="text" class="form-control" name="penerbit" required>
-              </div>
+        
             <div class="m-2">
                 <label for="">Bookshelf :</label>
               <input type="text" class="form-control" name="rakbuku" required>
               </div>
-            <div class="m-2">
-                <label for="">Book stock  :</label>
-              <input type="number" class="form-control" name="stok" required>
-              </div>
+          
 
             </div>
 
@@ -186,6 +190,7 @@ Enter Book Category
                 <label for="">Author :</label>
               <input type="text" name="Penulis" class="form-control" required>
             </div>
+
             <div class="m-2">
               <label for="">Category :</label>
               <select  id="" class="form-control" name="kategori" required>
@@ -202,34 +207,9 @@ while ($perulangan_kategori = mysqli_fetch_array($perulangan_)) { ?>
               <input type="text" name="Baris" class="form-control" required> 
             </div>
             <div class="m-2">
-              <label for="">Book volumes :</label>
-              <select  id="" class="form-control" name="volume" required>
-                <option value="0">There isn't any</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-              </select>
-            </div>
-            <div class="m-2">
-            <span class="text-danger font-italic">*Make sure all data presented is in accordance with the facts*</span>
-            </div>
+                <label for="">Book stock  :</label>
+              <input type="number" class="form-control" name="stok" required>
+              </div>
           </div>
        </div>
       <div class="modal-footer">
@@ -253,11 +233,15 @@ while ($perulangan_kategori = mysqli_fetch_array($perulangan_)) { ?>
   <thead>
     <tr>
       <th scope="col">No</th>
+      <th scope="col">Book Code</th>
       <th scope="col">Book title</th>
       <th scope="col">Author</th>
       <th scope="col">Category</th>
-      <th scope="col">Book publisher</th>
+      <!-- <th scope="col">Book publisher</th> -->
       <th scope="col">Book stock</th>
+      <!-- <th scope="col">Book Volume</th> -->
+      <th scope="col">Book Row</th>
+      <th scope="col">Book shelf</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
@@ -268,11 +252,15 @@ while ($perulangan_kategori = mysqli_fetch_array($perulangan_)) { ?>
     ?>
     <tr>
       <th scope="row"><?= $i; ?></th>
+      <td><?= $row['tb_kode_buku']; ?></td>
       <td><?= $row['tb_judul_buku']; ?></td>
       <td><?= $row['tb_penulis']; ?></td>
       <td><?= $row['tb_kategori_buku']; ?></td>
-      <td><?= $row['tb_penerbit']; ?></td>
+      <!-- <td><?= $row['tb_penerbit']; ?></td> -->
       <td><?= $row['tb_stok_buku']; ?></td>
+      <!-- <td><?= $row['tb_volume']; ?></td> -->
+      <td><?= $row['tb_rak_buku']; ?></td>
+      <td><?= $row['tb_baris_buku']; ?></td>
       <td>
 <span>
 
@@ -293,7 +281,45 @@ while ($perulangan_kategori = mysqli_fetch_array($perulangan_)) { ?>
     </tr>
     <?php $i++; ?>
     <?php endforeach; ?>
-   
+    <?php
+		if(isset($_POST["excel"])){
+			$fileName = $_FILES["excel"]["tb_kode_buku"];
+			$fileExtension = explode('.', $fileName);
+      $fileExtension = strtolower(end($fileExtension));
+			$newFileName = date("Y.m.d") . " - " . date("h.i.sa") . "." . $fileExtension;
+
+			$targetDirectory = "../uploads/" . $newFileName;
+			move_uploaded_file($_FILES['excel']['tmp_name'], $targetDirectory);
+
+			error_reporting(0);
+			ini_set('display_errors', 0);
+
+			require '../excelReader/excel_reader2.php';
+			require '../excelReader/SpreadsheetReader.php';
+
+			$reader = new SpreadsheetReader($targetDirectory);
+			foreach($reader as $key => $rw){
+				$kdbuku_ = $rw[0];
+				$judul = $rw[1];
+				$Author = $rw[2];
+				$Category = $rw[3];
+				$publisher = $rw[4];
+				$stock = $rw[5];
+				$Volume = $rw[6];
+				$Row = $rw[7];
+				$shelf = $rw[8];
+				mysqli_query($conn, "INSERT INTO tb_buku VALUES('', '$kdbuku_', '$judul', '$Author', '$Category', '$publisher', '$stock', '$Volume', '$Row', '$shelf')");
+			}
+
+			echo
+			"
+			<script>
+			alert('Succesfully Imported');
+			document.location.href = '';
+			</script>
+			";
+		}
+		?>
   </tbody>
 </table>
       
