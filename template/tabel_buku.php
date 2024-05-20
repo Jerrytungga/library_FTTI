@@ -170,7 +170,7 @@ include 'navbar.php';
               </div>
             <div class="m-2">
                 <label for="">Image :</label>
-              <input type="file" class="form-control" name="image" required>
+              <input type="file" class="form-control" name="image" >
               </div>
             <div class="m-2">
                 <label for="">Book title :</label>
