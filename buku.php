@@ -23,160 +23,139 @@ if (!isset($_SESSION['id'])) {
     <link rel="stylesheet" href="css/user.css">
     <title>FTTI | Library</title>
     <style>
-      img{
-        height: 200px;
-        width: 150px;
-      }
-      .bdy{
-        background-color: #fff;
-      }
-      .title{
-        width: 150px;
 
-      }
 
- 
-.image {
-  width: 100%;
-  height: 100%;
-  transition: transform 0.3s ease;
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1);
 }
 
-.image:hover {
-  transform: scale(1.1);
+th, td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
 }
 
-.size{
-  background-color: #ffff;
-  width: 200px;
-
+thead {
+    background-color: #009879;
+    color: #ffffff;
 }
+
+tr:nth-child(even) {
+    background-color: #f3f3f3;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        border: 1px solid #ccc;
+        margin-bottom: 5px;
+    }
+
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+    }
+
+    td:before {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+        content: attr(data-label);
+        font-weight: bold;
+        text-align: left;
+    }
+}
+
     </style>
   </head>
-  <body class="bdy">
+  <body>
   <?php
 include 'navbar.php';
 ?>
 
-<div class="container mt-4">
-  <ul class="nav">
-        <form class="form-inline my-2 my-lg-0" action="" method="post">
-          <input class="form-control mr-sm-2 shadow bg-light" type="text" name="search" placeholder="Enter the book title" aria-label="Search">
+
+<form class="form-inline my-2 my-lg-0" action="" method="post">
+          <input class="form-control mr-sm-2 shadow bg-light" type="text" name="search" placeholder="Enter the book title" aria-label="Search" required>
           <button class="btn bt my-2 my-sm-0 riht bg-light shadow " type="submit">Search</button>
         </form>
-     
-    </ul>
-    <hr>
-  <div class="row">
-  <?php
-  $cari = $_POST['kat'];
-  $cari1 = $_POST['search'];
-if(isset($cari)){
-$database_buku = mysqli_query($conn, "SELECT * FROM `tb_buku` where `tb_kategori_buku` = '".$_POST['kat']."'");
-while ($row = mysqli_fetch_array($database_buku)){ 
-  $database_buku_kembali = mysqli_fetch_array(mysqli_query($conn, "SELECT Count(tb_kod_buku) as jumlah FROM `tb_pengembalian` where tb_kod_buku='".$row['tb_kode_buku']."'"));
+
+        <table id="myTable">
+            <thead>
+                <tr>
+                    <th>Book Title</th>
+                    <th>Author</th>
+                    <th>Category</th>
+                    <th>Stock</th>
+                    <th>Bookshelf</th>
+                    <th>Row</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php
+             $cari = $_POST['kat'];
+             $cari1 = $_POST['search'];
+           if(isset($cari)){
+           $database_buku = mysqli_query($conn, "SELECT * FROM `tb_buku` where `tb_kategori_buku` = '".$_POST['kat']."'");
+           } else {
+             $database_buku = mysqli_query($conn, "SELECT * FROM `tb_buku`");
+           } if(isset($cari1)) { 
+            $database_buku = mysqli_query($conn, "SELECT * FROM `tb_buku` where `tb_judul_buku` = '$cari1'");
+            }
+              $i = 1;
+              foreach ($database_buku as $row) :
+            ?>
+
+                <tr>
+                    <td><?= $row['tb_judul_buku']; ?></td>
+                    <td><?= $row['tb_penulis']; ?></td>
+                    <td><?= $row['tb_kategori_buku']; ?></td>
+                    <td><?= $row['tb_stok_buku']; ?></td>
+                    <td><?= $row['tb_rak_buku']; ?></td>
+                    <td><?= $row['tb_baris_buku']; ?></td>
+                </tr>
+                <?php $i++; ?>
+    <?php endforeach; ?>
+            </tbody>
+        </table>
   
-  ?>
-  <div class="col-6 col-md-2 col-lg-2 mb-3">
-      <div class="card-body">
 
-        <!-- <a href="#" class=" text-capitalize font-weight-bold text-dark">View More</a> -->
-        <form action="lihat.php" method="post">
-          <button type="submit" name="kd_book" value="<?= $row['tb_kode_buku']; ?>" class="btn-sm  font-weight-bold mr-2 image">
-            <img src="img/<?= $row['tb_gambar_buku']; ?>" alt="">
-              <h5 class="d-inline-block text-truncate text-justify" style="max-width: 100px;"><?= $row['tb_judul_buku']; ?></h5>
-          
-          
-          
-          
-          </button>
-            
-        </form>
-        <form action="lihatpeminjam.php" method="post">
-        <button type="submit" name="kd_bo" value="<?= $row['tb_kode_buku']; ?>"  class="btn-sm  font-weight-bold mr-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
-                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
-            </svg><span class="badge badge-danger font-weight-bold"><?= $database_buku_kembali['jumlah'] ?></span>
-        </button>
 
-      </form>
-      </div>
-  
-  </div>
-<?php } 
 
-} else if(isset($cari1)) { ?>
- <?php
-$database_buku = mysqli_query($conn, "SELECT * FROM `tb_buku` where `tb_judul_buku` = '$cari1'");
-while ($row = mysqli_fetch_array($database_buku)){ 
-  $database_buku_kembali = mysqli_fetch_array(mysqli_query($conn, "SELECT Count(tb_kod_buku) as jumlah FROM `tb_pengembalian` where tb_kod_buku='".$row['tb_kode_buku']."'"));
-  
-  ?>
-  <div class="col-6 col-md-2 col-lg-2 mb-3">
-      <div class="card-body">
-        <!-- <a href="#" class=" text-capitalize font-weight-bold text-dark">View More</a> -->
-        <form action="lihat.php" method="post">
-          <button type="submit" name="kd_book" value="<?= $row['tb_kode_buku']; ?>" class="btn-sm size font-weight-bold mr-2 image">
-            <img src="img/<?= $row['tb_gambar_buku']; ?>" alt="">
-            <h5 class="d-inline-block text-truncate text-justify" style="max-width: 100px;"><?= $row['tb_judul_buku']; ?></h5>
-          
-          
-          </button>
-           
-        </form>
-        <form action="lihatpeminjam.php" method="post">
-        <button type="submit" name="kd_bo" value="<?= $row['tb_kode_buku']; ?>"  class="btn-sm size btn font-weight-bold mr-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
-                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
-            </svg><span class="badge badge-danger font-weight-bold"><?= $database_buku_kembali['jumlah'] ?></span>
-        </button>
 
-      </form>
-      </div>
-  
-  </div>
 
-<?php }
-}  else { ?>
- <?php
-$database_buku = mysqli_query($conn, "SELECT * FROM `tb_buku`");
-while ($row = mysqli_fetch_array($database_buku)){ 
-  $row['tb_kode_buku'];
-  $database_buku_kembali = mysqli_fetch_array(mysqli_query($conn, "SELECT Count(tb_kod_buku) as jumlah FROM `tb_pengembalian` where tb_kod_buku='".$row['tb_kode_buku']."'"));
-  
-  
-  ?>
-  <div class="col-6 col-md-2 col-lg-2 mb-3">
-    <div class="card-body">
-      <!-- <a href="#" class=" text-capitalize font-weight-bold text-dark">View More</a> -->
-      <form action="lihat.php" method="post" class="form-inline">
-        <button type="submit" name="kd_book" value="<?= $row['tb_kode_buku']; ?>" class="btn-sm size btn font-weight-bold mr-2 image">
-          
-        <img src="img/<?= $row['tb_gambar_buku']; ?>" alt="">
-        <h5 class="d-inline-block text-truncate text-justify" style="max-width: 100px;"><?= $row['tb_judul_buku']; ?></h5>
-      
-      </button>
-      </form>
-      <form action="lihatpeminjam.php" method="post">
-        <button type="submit" name="kd_bo" value="<?= $row['tb_kode_buku']; ?>"  class="btn-sm btn font-weight-bold mr-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
-                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
-            </svg><span class="badge badge-danger font-weight-bold"><?= $database_buku_kembali['jumlah'] ?></span>
-        </button>
 
-      </form>
-      </div>
-  
-  </div>
 
-<?php } 
-}?>
 
-</div>
-</div>
+
+
+
+
+
+
+
+
 
 
 

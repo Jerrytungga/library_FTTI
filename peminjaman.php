@@ -46,11 +46,14 @@ if($insert_kembali_buku){
 }
   }  
 
-  if (isset($_POST['kd_buku'])) {
-    $kodebuku = $_POST['kd_buku'];
-    $cek_kode_buku = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `tb_buku` WHERE `tb_kode_buku`='$kodebuku'"));
-    $cek_kode_buku = ['tb_kode_buku'];
-    if ($cek_kode_buku > 0) {
+  // if (isset($_POST['kd_buku'])) {
+  //   $kodebuku = $_POST['kd_buku'];
+  //   $cek_kode_buku = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `tb_buku` WHERE `tb_kode_buku`='$kodebuku'"));
+  //   $cek_kode_buku = ['tb_kode_buku'];
+  //   if ($cek_kode_buku > 0) {
+
+
+
       if (isset($_POST['kd_buku'])) {
         $kodebuku = $_POST['kd_buku'];
         $pinjam = '+1';
@@ -60,30 +63,45 @@ if($insert_kembali_buku){
           $max_id = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`id_peminjaman`) As id FROM `tb_peminjaman`"));
           $idBuku = $max_id['id'] + 1;
           $katego = $pd['tb_kategori_buku'];
-          $insertbuku = mysqli_query($conn, "INSERT INTO `tb_peminjaman`(`id_peminjaman`,`tb_nip`, `tb_kd_buku`, `tb_stok_peminjaman`,`tb_kategori`) VALUES ('$idBuku','$id','$kodebuku','$pinjam','$katego')");
-          if($insertbuku){
-            echo "<script>setTimeout(function(){ window.location.href = 'peminjaman.php'; }, 3000);</script>";
-          }
-        } else{
-            // $kd=$_POST['kd_buku'];
-            // $ambil_stokbuku = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`tb_stok_buku`) As jumlahbuku FROM `tb_buku` where tb_kode_buku='$kd'"));
-            // $ambilstok = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`tb_stok_peminjaman`) As jumlahstok FROM `tb_peminjaman` where tb_nip='$id'"));
-            // $stok_ = $ambil_stokbuku['jumlahbuku']-$ambilstok['jumlahstok'];
-            // mysqli_query($conn, "UPDATE `tb_buku` SET `tb_stok_buku`='$stok_' WHERE `tb_kode_buku`='$kd'");
+          
+          
+          
+          $cek_kode_buku = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `tb_buku` WHERE `tb_kode_buku`= '".$_POST['kd_buku']."'"));
+          if ($cek_kode_buku['tb_kode_buku'] == 0){
             echo "<script type='text/javascript'>
-            alert('Buku sudah ada');
+            alert('Buku tidak ada');
           </script>";
+          } else {
+
+            $insertbuku = mysqli_query($conn, "INSERT INTO `tb_peminjaman`(`id_peminjaman`,`tb_nip`, `tb_kd_buku`, `tb_stok_peminjaman`,`tb_kategori`) VALUES ('$idBuku','$id','$kodebuku','$pinjam','$katego')");
+            if($insertbuku){
+              $kd=$_POST['kd_buku'];
+              $ambil_stokbuku = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`tb_stok_buku`) As jumlahbuku FROM `tb_buku` where tb_kode_buku='$kd'"));
+              $ambilstok = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`tb_stok_peminjaman`) As jumlahstok FROM `tb_peminjaman` where tb_nip='$id'"));
+              $stok_ = $ambil_stokbuku['jumlahbuku']-$ambilstok['jumlahstok'];
+              mysqli_query($conn, "UPDATE `tb_buku` SET `tb_stok_buku`='$stok_' WHERE `tb_kode_buku`='$kd'");
+              echo "<script>setTimeout(function(){ window.location.href = 'peminjaman.php'; }, 3000);</script>";
+            }
+
+          }
+
+        } else{
+            $kd=$_POST['kd_buku'];
+            $ambil_stokbuku = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`tb_stok_buku`) As jumlahbuku FROM `tb_buku` where tb_kode_buku='$kd'"));
+            $ambilstok = mysqli_fetch_array(mysqli_query($conn, "SELECT MAX(`tb_stok_peminjaman`) As jumlahstok FROM `tb_peminjaman` where tb_nip='$id'"));
+            $stok_ = $ambil_stokbuku['jumlahbuku']-$ambilstok['jumlahstok'];
+            mysqli_query($conn, "UPDATE `tb_buku` SET `tb_stok_buku`='$stok_' WHERE `tb_kode_buku`='$kd'");
           }
       } 
 
-    }
+  //   }
 
  
  
     
 
 
-  } 
+  // } 
 
 
   $get_data = mysqli_query($conn, "SELECT * FROM tb_trainee WHERE nip_traines='$id'");
@@ -115,8 +133,8 @@ include 'navbar.php';
       <div class="card-body">
         <h5 class="card-title text-capitalize font-italic">Book Borrowing Table</h5>
         <form action="" method="post">
-          <input  name="kd_buku" type="text" class="mb-2" autofocus required>
-          <button type="submit">Masukan</button>
+          <input  name="kd_buku" type="text" autofocus required>
+          <button class="btn btn-sm bt mb-2 riht bg-success" type="submit">Input</button>
         </form>
         <div class="table-responsive">
         <table class="table table-striped">
